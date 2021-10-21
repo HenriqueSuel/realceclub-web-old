@@ -18,7 +18,7 @@ const signInFormSchema = yup.object().shape({
 })
 
 
-const LoginEmployees = () => {
+const LoginCompany = () => {
     const router = useRouter();
 
     const { register, handleSubmit, formState } = useForm({
@@ -29,10 +29,10 @@ const LoginEmployees = () => {
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
         try {
-            const resp = await postApiNotAuthentication('/session', values);
+            const resp = await postApiNotAuthentication('/company/login', values);
             console.log(resp);
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            console.log(err)
         }
 
     }
@@ -50,7 +50,7 @@ const LoginEmployees = () => {
                 paddingBottom="8"
             >
                 <Text
-                    fontSize="6xl">Realceclub Funcionario</Text>
+                    fontSize="6xl">Realceclub Empresa</Text>
             </Flex>
             <Flex
                 as="form"
@@ -98,4 +98,4 @@ const LoginEmployees = () => {
     )
 }
 
-export default LoginEmployees;
+export default LoginCompany;
