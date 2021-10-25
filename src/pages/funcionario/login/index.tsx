@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Input } from '../../../components/Input';
 import { postApiNotAuthentication } from '../../../services/apiNotAuthentication';
 import { useRouter } from 'next/dist/client/router';
+import { useAlert } from '../../../contexts/AlertContext';
+import LayoutCardImage from '../../../components/LayoutCardImage';
 
 type SignInFormData = {
     email: string;
@@ -20,6 +22,7 @@ const signInFormSchema = yup.object().shape({
 
 const LoginEmployees = () => {
     const router = useRouter();
+    const { setAlert } = useAlert();
 
     const { register, handleSubmit, formState } = useForm({
         resolver: yupResolver(signInFormSchema)
@@ -30,40 +33,28 @@ const LoginEmployees = () => {
     const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
         try {
             const resp = await postApiNotAuthentication('/session', values);
-            console.log(resp);
-        } catch (error) {
-            console.log(error)
+        } catch (err) {
+            setAlert({ message: err.message, color: 'error' });
         }
 
     }
 
     return (
-        <Flex
-            w="100vw"
-            h="100vh"
-            align="center"
-            justify="center"
-            flexDirection="column"
-        >
+        <LayoutCardImage
+            direction="row"
+            img="/images/background-login-employees.png"
+            altImg="foto de dois moletos">
+
             <Flex
-                paddingTop="8"
-                paddingBottom="8"
-            >
-                <Text
-                    fontSize="6xl">Realceclub Funcionario</Text>
-            </Flex>
-            <Flex
+                display="flex"
+                justifyContent="center"
+                alignSelf="center"
                 as="form"
-                width="100%"
-                maxWidth={360}
-                bg="gray.800"
-                p="8"
-                borderRadius={8}
-                flexDir="column"
+                w="100%"
                 onSubmit={handleSubmit(handleSignIn)}
             >
 
-                <Stack spacing="4">
+                <Stack spacing="4" width="18rem">
                     <Input
                         name="email"
                         type="email"
@@ -78,23 +69,28 @@ const LoginEmployees = () => {
                         error={errors.password}
                         {...register('password')}
                     />
+
+                    <Button
+                        type="submit"
+                        mt="6"
+                        bg="black"
+                        color="white"
+                        size="lg"
+                        _hover={{ bg: 'yellow', color: 'black' }}
+                        isLoading={formState.isSubmitting}
+                    >
+                        Entrar
+                    </Button>
+                    <Link paddingTop="8" color="blue" textAlign="center" onClick={() => router.push('cadastro')} isExternal>
+                        Criar Conta
+                    </Link>
                 </Stack>
 
-                <Button
-                    type="submit"
-                    mt="6"
-                    colorScheme="pink"
-                    size="lg"
-                    isLoading={formState.isSubmitting}
-                >
-                    Entrar
-                </Button>
-                <Link paddingTop="8" textAlign="center" onClick={() => router.push('cadastro')} isExternal>
-                    Criar Conta
-                </Link>
 
             </Flex>
-        </Flex>
+
+        </LayoutCardImage>
+
     )
 }
 
