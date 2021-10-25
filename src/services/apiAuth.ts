@@ -8,7 +8,6 @@ const headers = {
 
 const baseUrl = process.env.NEXT_PUBLIC_API;
 
-
 export async function getAuth<T>(url: string): Promise<T> {
   try {
     const { 'nextauth.token': token } = parseCookies()
