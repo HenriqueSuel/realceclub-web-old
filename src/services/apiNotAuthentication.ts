@@ -4,7 +4,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const baseUrl = 'http://localhost:3333';
+const baseUrl = process.env.NEXT_PUBLIC_API;
 
 
 export async function postApiNotAuthentication<T>(url: string, data): Promise<T> {

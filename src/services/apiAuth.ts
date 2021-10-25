@@ -6,7 +6,7 @@ const headers = {
   Authorization: ''
 };
 
-const baseUrl = 'http://localhost:3333';
+const baseUrl = process.env.NEXT_PUBLIC_API;
 
 
 export async function getAuth<T>(url: string): Promise<T> {
