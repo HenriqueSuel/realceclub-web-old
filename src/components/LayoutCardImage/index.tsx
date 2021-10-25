@@ -19,7 +19,7 @@ const LayoutCardImage: React.FC<IProps> = ({ children, altImg, direction, img })
         >
 
             <Image maxHeight="100vh" src={img} alt={altImg} display={{
-                base: 'block', sm: 'none', md: 'none', lg: 'block', xl: 'block'
+                base: 'none', sm: 'none', md: 'none', lg: 'block', xl: 'block'
             }} />
 
             <Flex
