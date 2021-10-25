@@ -1,5 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import { Flex } from '@chakra-ui/layout';
+import { useRouter } from 'next/router';
 import CallToActionWithIllustration from '../components/Home/Hero';
 import WithSubnavigation from '../components/NavBar';
 export default function Home() {
