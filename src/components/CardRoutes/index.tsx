@@ -1,11 +1,13 @@
 import { Flex, HStack, Text } from "@chakra-ui/layout";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 
 interface ICardRoutes {
     name: string;
     route: string;
     isActive: boolean;
+    rules: string[];
 }
 
 interface IProps {
@@ -19,12 +21,12 @@ const CardRoutes = ({ data }: IProps) => {
 
     useEffect(() => {
         const onMount = () => {
-            const treatedRoutes = data.map(route => (
-                {
-                    ...route,
-                    isActive: route.route === router.asPath
+            const { 'nextauth.type': type } = parseCookies();
+            const treatedRoutes = data.filter(route => {
+                if (route.rules.some(rule => type === rule)) {
+                    return route
                 }
-            ))
+            })
             setRoutes(treatedRoutes)
         }
         onMount();
@@ -40,7 +42,7 @@ const CardRoutes = ({ data }: IProps) => {
             pl="9"
         >
             <HStack spacing="24px" height="100%">
-                {routes.map(({ name, isActive, route }, index) => (
+                {routes.map(({ name, route }, index) => (
                     <Text
                         key={index}
                         height="100%"
@@ -48,8 +50,8 @@ const CardRoutes = ({ data }: IProps) => {
                         alignItems="center"
                         fontWeight="bold"
                         cursor="pointer"
-                        borderBottom={isActive ? '5px solid #FFBF00' : "5px solid transparent"}
-                        color={isActive ? "yellow" : "gray.900"}
+                        borderBottom={route === router.asPath ? '5px solid #FFBF00' : "5px solid transparent"}
+                        color={route === router.asPath ? "yellow" : "gray.900"}
                         _hover={null}
                         onClick={() => router.push(route)}
                     >{name}</Text>

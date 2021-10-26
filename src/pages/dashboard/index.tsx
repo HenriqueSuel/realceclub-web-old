@@ -24,8 +24,6 @@ interface IListEmployees {
     }
 }
 
-
-
 const searchFormSchema = yup.object().shape({
     cpf: yup.string().required('CPF é obrigatio'),
 })

@@ -8,6 +8,8 @@ import { postApiNotAuthentication } from '../../../services/apiNotAuthentication
 import { useRouter } from 'next/dist/client/router';
 import { useAlert } from '../../../contexts/AlertContext';
 import LayoutCardImage from '../../../components/LayoutCardImage';
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 type SignInFormData = {
     email: string;
@@ -22,6 +24,8 @@ const signInFormSchema = yup.object().shape({
 
 const LoginEmployees = () => {
     const router = useRouter();
+    const { signIn } = useContext(AuthContext);
+
     const { setAlert } = useAlert();
 
     const { register, handleSubmit, formState } = useForm({
@@ -32,7 +36,8 @@ const LoginEmployees = () => {
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
         try {
-            const resp = await postApiNotAuthentication('/session', values);
+            const resp = await postApiNotAuthentication('/employees/login', values);
+            signIn(resp as any, 'employees')
         } catch (err) {
             setAlert({ message: err.message, color: 'error' });
         }

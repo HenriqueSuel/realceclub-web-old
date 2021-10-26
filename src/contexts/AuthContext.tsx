@@ -10,6 +10,7 @@ type User = {
     cpf?: string;
     name_company?: string;
     full_name?: string;
+    owner_name?: string;
 };
 
 type SingIn = {
@@ -21,6 +22,7 @@ type SingIn = {
 type AuthContextData = {
     signIn: (data: SingIn, type: string) => void;
     signOut: () => void;
+    setUser: (user) => void;
     user: User;
     isAuthenticated: boolean;
 };
@@ -62,20 +64,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         }
     }, [])
 
-/*     useEffect(() => {
-        const { 'nextauth.token': token } = parseCookies()
-        const { 'nextauth.type': type } = parseCookies()
-        if (token) {
-            getAuth<User>(`${type}/me`)
-                .then(response => {
-                    Router.push('/dashboard');
-                    setUser({ ...response })
-                })
-                .catch(() => {
-                    signOut();
-                })
-        }
-    }, []) */
 
     function signIn(data: SingIn, type: string) {
         setCookie(undefined, 'nextauth.type', type, {
@@ -95,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user }}>
+        <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user, setUser }}>
             {children}
         </AuthContext.Provider>
     )

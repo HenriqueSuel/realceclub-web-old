@@ -28,7 +28,7 @@ const NavItem = ({ icon, title, navSize, route}) => {
                 <Link
                     borderRadius={8}
                     w={navSize == "large" && "100%"}
-/*                     onClick={() => router.push(route)} */
+                    onClick={() => router.push(route)}
                 >
                     <MenuButton w="100%">
                         <Flex >

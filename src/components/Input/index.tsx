@@ -17,14 +17,14 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps>
         {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}
 
         <InputMask mask={mask}  {...rest}>
-        {(inputProps) =>
-          <ChakraInput
-            name={name}
-            id={name}
-            ref={ref}
-            {...inputProps}
-          />
-        }
+          {(inputProps) =>
+            <ChakraInput
+              name={name}
+              id={name}
+              ref={ref}
+              {...inputProps}
+            />
+          }
         </InputMask>
         {!!error && (
           <FormErrorMessage color="red">

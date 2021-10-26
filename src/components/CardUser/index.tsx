@@ -11,7 +11,7 @@ interface IPropsCardUser {
 
 const CardUser = ({ avatar, name, date, email, children }: IPropsCardUser) => {
     return (
-        <Flex pt="2" pb="2" alignItems="center">
+        <Flex pt="2" pb="2" alignItems="center"  w="100%">
             <Avatar name={name} src={avatar} />
 
             <Flex

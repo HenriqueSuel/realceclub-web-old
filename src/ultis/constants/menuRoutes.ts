@@ -5,11 +5,13 @@ const ROUTES = [
     {
         name: 'Funcionário',
         route: '/dashboard',
+        rules: ['company', 'employees'],
         isActive: false
     },
     {
         name: 'Relatorio',
         route: 'dashboard/relatorio',
+        rules: ['company', 'employees'],
         isActive: false
     }
 ]
@@ -23,8 +25,35 @@ const ROUTES_SLIDE_BAR = [
     {
         name: 'Agendamento',
         icon: FaCalendar,
-        route: '/agendamento'
+        route: '/dashboard/'
     }
 ]
 
-export {ROUTES, ROUTES_SLIDE_BAR}
+const ROUTES_PROFILE = [
+    {
+        name: 'Perfil',
+        route: '/perfil',
+        rules: ['company'],
+        isActive: false
+    },
+    {
+        name: 'Convites',
+        route: '/convites',
+        rules: ['employees'],
+        isActive: false
+    },
+    {
+        name: 'Horario de atendimento',
+        route: '/horario-atendimento',
+        rules: ['company', 'employees'],
+        isActive: false
+    },
+    {
+        name: 'Historico',
+        route: '/historico',
+        rules: ['company', 'employees'],
+        isActive: false
+    },
+]
+
+export {ROUTES, ROUTES_SLIDE_BAR, ROUTES_PROFILE}

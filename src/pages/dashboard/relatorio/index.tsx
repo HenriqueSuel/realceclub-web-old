@@ -6,12 +6,14 @@ const ROUTES = [
     {
         name: 'Funcionário',
         route: '/dashboard',
-        isActive: false
+        isActive: false,
+        rules: ['company', 'employees']
     },
     {
         name: 'Relatorio',
         route: '/dashboard/relatorio',
-        isActive: false
+        isActive: false,
+        rules: ['company', 'employees']
     }
 ]
 
