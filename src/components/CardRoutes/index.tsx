@@ -40,7 +40,7 @@ const CardRoutes = ({ data }: IProps) => {
             pl="9"
         >
             <HStack spacing="24px" height="100%">
-                {routes.map(({ name, isActive }, index) => (
+                {routes.map(({ name, isActive, route }, index) => (
                     <Text
                         key={index}
                         height="100%"
@@ -51,6 +51,7 @@ const CardRoutes = ({ data }: IProps) => {
                         borderBottom={isActive ? '5px solid #FFBF00' : "5px solid transparent"}
                         color={isActive ? "yellow" : "gray.900"}
                         _hover={null}
+                        onClick={() => router.push(route)}
                     >{name}</Text>
 
                 ))}

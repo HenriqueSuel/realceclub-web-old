@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Flex,
     Text,
@@ -10,11 +10,12 @@ import {
 import { PhoneIcon, EmailIcon, CalendarIcon, ChevronLeftIcon, } from '@chakra-ui/icons';
 import { FaSuitcaseRolling, FaUser } from 'react-icons/fa';
 import NavItem from '../NavItem'
+import { ROUTES_SLIDE_BAR } from '../../ultis/constants/menuRoutes';
+import { useRouter } from 'next/router';
 
 
 const SideBar = () => {
-    const [navSize, changeNavSize] = useState("small")
-
+    const [navSize, changeNavSize] = useState("small");
     return (
         <>
             <Flex
@@ -46,13 +47,9 @@ const SideBar = () => {
                                 changeNavSize("small")
                         }}
                     />
-                    <NavItem navSize={navSize} icon={FaUser} title="Funcionarios" active />
-                    <NavItem navSize={navSize} icon={CalendarIcon} title="Calendar" />
-                    <NavItem navSize={navSize} icon={ChevronLeftIcon} title="Clients" />
-                    <NavItem navSize={navSize} icon={EmailIcon} title="Animals" />
-                    <NavItem navSize={navSize} icon={PhoneIcon} title="Stocks" />
-                    <NavItem navSize={navSize} icon={CalendarIcon} title="Reports" />
-                    <NavItem navSize={navSize} icon={ChevronLeftIcon} title="Settings" />
+                    {ROUTES_SLIDE_BAR.map((routes) => (
+                        <NavItem navSize={navSize} icon={routes.icon} route={routes.route} title={routes.name} />
+                    ))}
                 </Flex>
 
                 <Flex
