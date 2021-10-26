@@ -18,16 +18,13 @@ const NavItem = ({ icon, title, navSize, active = false }) => {
         >
             <Menu placement="right">
                 <Link
-                    backgroundColor={active && "whiteAlpha.200"}
-                    p={3}
                     borderRadius={8}
-                    _hover={{ textDecor: 'none', backgroundColor: "whiteAlpha.200" }}
                     w={navSize == "large" && "100%"}
                 >
                     <MenuButton w="100%">
-                        <Flex>
-                            <Icon as={icon} fontSize="xl" />
-                            <Text ml={5} display={navSize == "small" ? "none" : "flex"}>{title}</Text>
+                        <Flex >
+                            <Icon as={icon} fontSize="1.5rem" color={active && "yellow" || "gray.300"}  />
+                            <Text ml={5} color={active && "yellow" || "gray.300" } display={navSize == "small" ? "none" : "flex"}>{title}</Text>
                         </Flex>
                     </MenuButton>
                 </Link>

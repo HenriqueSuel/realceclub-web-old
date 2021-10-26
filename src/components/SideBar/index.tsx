@@ -2,44 +2,43 @@ import { useState } from 'react'
 import {
     Flex,
     Text,
-    IconButton,
     Divider,
     Avatar,
-    Heading
+    Heading,
+    Image
 } from '@chakra-ui/react'
-import { HamburgerIcon, PhoneIcon, EmailIcon, CalendarIcon, ChevronLeftIcon, } from '@chakra-ui/icons';
-import { FaSuitcaseRolling } from 'react-icons/fa';
+import { PhoneIcon, EmailIcon, CalendarIcon, ChevronLeftIcon, } from '@chakra-ui/icons';
+import { FaSuitcaseRolling, FaUser } from 'react-icons/fa';
 import NavItem from '../NavItem'
 
 
 const SideBar = () => {
-    const [navSize, changeNavSize] = useState("large")
+    const [navSize, changeNavSize] = useState("small")
 
     return (
         <>
             <Flex
                 pos="sticky"
-                boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+                boxShadow="2xl"
                 w={navSize == "small" ? "75px" : "200px"}
                 flexDir="column"
                 justifyContent="space-between"
-                bg="gray.800"
+                bg="white"
                 color="white"
+                minHeight="100vh"
             >
                 <Flex
-                    p="5%"
+                    p="4"
                     flexDir="column"
                     w="100%"
                     alignItems={navSize == "small" ? "center" : "flex-start"}
                     as="nav"
                 >
-                    <IconButton
-                        aria-label="Menu Hamburger"
-                        background="none"
-                        mt={5}
-                        _hover={{ background: 'none' }}
-                        colorScheme="teal"
-                        icon={<HamburgerIcon />}
+                    <Image
+                        margin="auto"
+                        borderRadius="full"
+                        src="/images/realceclub.png"
+                        alt="Segun Adebayo"
                         onClick={() => {
                             if (navSize == "small")
                                 changeNavSize("large")
@@ -47,7 +46,7 @@ const SideBar = () => {
                                 changeNavSize("small")
                         }}
                     />
-                    <NavItem navSize={navSize} icon={FaSuitcaseRolling} title="Funcionarios" active />
+                    <NavItem navSize={navSize} icon={FaUser} title="Funcionarios" active />
                     <NavItem navSize={navSize} icon={CalendarIcon} title="Calendar" />
                     <NavItem navSize={navSize} icon={ChevronLeftIcon} title="Clients" />
                     <NavItem navSize={navSize} icon={EmailIcon} title="Animals" />
@@ -67,8 +66,7 @@ const SideBar = () => {
                     <Flex mt={4} align="center">
                         <Avatar size="sm" src="avatar-1.jpg" />
                         <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
-                            <Heading as="h3" size="sm">Sylwia Weller</Heading>
-                            <Text color="gray">Admin</Text>
+                            <Text color="gray.300">Nome da empresa</Text>
                         </Flex>
                     </Flex>
                 </Flex>
