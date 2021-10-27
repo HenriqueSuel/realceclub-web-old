@@ -11,6 +11,12 @@ import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 
+
+type SingIn = {
+    employees: ISignUpFormData,
+    token: string;
+}
+
 type ISignUpFormData = {
     cpf: string;
     email: string;
@@ -39,7 +45,7 @@ const signUpEmployees = () => {
 
     const handleSignUp: SubmitHandler<ISignUpFormData> = async (values) => {
         try {
-            const resp = await postApiNotAuthentication('/employees', values);
+            const resp = await postApiNotAuthentication<SingIn>('/employees', values);
             signIn(resp, 'employees');
         } catch (err) {
             setAlert({ message: err.message, color: 'error' });
