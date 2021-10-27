@@ -79,7 +79,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             ...data.company
         })
 
-        Router.push('/dashboard');
+        const router = type === 'company' ? '/dashboard' : '/convites'
+
+        Router.push(router);
     }
 
     return (

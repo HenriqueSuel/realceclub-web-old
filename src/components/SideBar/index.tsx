@@ -9,11 +9,18 @@ import {
 import NavItem from '../NavItem'
 import { ROUTES_SLIDE_BAR } from '../../ultis/constants/menuRoutes';
 import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 
 
 const SideBar = () => {
     const router = useRouter();
     const [navSize, changeNavSize] = useState("small");
+
+    const redirectProfile = () => {
+        const { 'nextauth.type': type } = parseCookies();
+        const route = type === 'company' ? 'perfil' : 'convites';
+        router.push(route)
+    }
     return (
         <>
             <Flex
@@ -58,7 +65,7 @@ const SideBar = () => {
                     mb={4}
                 >
                     <Divider display={navSize == "small" ? "none" : "flex"} />
-                    <Flex mt={4} align="center" onClick={() => router.push('/perfil')}>
+                    <Flex mt={4} align="center" onClick={redirectProfile}>
                         <Avatar size="sm" src="avatar-1.jpg" />
                         <Flex flexDir="column" ml={4} display={navSize == "small" ? "none" : "flex"}>
                             <Text color="gray.300">Nome da empresa</Text>
