@@ -61,7 +61,7 @@ const signUpEmployees = () => {
                         type="text"
                         label="CPF"
                         error={errors.cpf}
-                        mask="99.999.999/9999-99"
+                        mask="999.999.999-99"
                         {...register('cpf')}
                     />
                     <Input
