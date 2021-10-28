@@ -16,11 +16,29 @@ const SideBar = () => {
     const router = useRouter();
     const [navSize, changeNavSize] = useState("small");
 
+    const [routes, setRoutes] = useState([])
+
     const redirectProfile = () => {
         const { 'nextauth.type': type } = parseCookies();
         const route = type === 'company' ? 'perfil' : 'convites';
         router.push(route)
     }
+
+
+    useEffect(() => {
+        const onMount = () => {
+            const { 'nextauth.type': type } = parseCookies();
+            const treatedRoutes = ROUTES_SLIDE_BAR.filter(route => {
+                if (route.rules.some(rule => type === rule)) {
+                    return route
+                }
+            })
+            setRoutes(treatedRoutes)
+        }
+        onMount();
+    }, [])
+
+
     return (
         <>
             <Flex
@@ -52,7 +70,7 @@ const SideBar = () => {
                                 changeNavSize("small")
                         }}
                     />
-                    {ROUTES_SLIDE_BAR.map((routes, index) => (
+                    {routes.map((routes, index) => (
                         <NavItem key={index} navSize={navSize} icon={routes.icon} route={routes.route} title={routes.name} />
                     ))}
                 </Flex>

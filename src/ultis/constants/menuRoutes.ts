@@ -20,12 +20,14 @@ const ROUTES_SLIDE_BAR = [
     {
         name: 'Funcionarios',
         icon: FaUser,
-        route: '/dashboard'
+        route: '/dashboard',
+        rules: ['company'],
     },
     {
         name: 'Agendamento',
         icon: FaCalendar,
-        route: '/dashboard/'
+        route: '/dashboard/',
+        rules: ['company'],
     }
 ]
 
