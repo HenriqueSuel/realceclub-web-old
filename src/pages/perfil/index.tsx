@@ -28,7 +28,6 @@ const Profile = () => {
     useEffect(() => {
         const onMount = async () => {
             try {
-                debugger
                 const resp = await getAuth<User>("/company/me");
                 setUser({ ...resp })
             } catch (error) {

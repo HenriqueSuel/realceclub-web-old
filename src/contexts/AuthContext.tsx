@@ -94,7 +94,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 const { 'nextauth.token': token } = parseCookies();
                 const { 'nextauth.type': type } = parseCookies();
                 const verifyRoute = validationRoutes(Router.asPath, token?.length > 0, type)
-                debugger
                 if (verifyRoute.haveRermission && verifyRoute.needToken) {
                     const resp = await getAuth<User>(`/${type}/me`);
                     setUser(resp)
