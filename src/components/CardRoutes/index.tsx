@@ -3,18 +3,8 @@ import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 
-interface ICardRoutes {
-    name: string;
-    route: string;
-    isActive: boolean;
-    rules: string[];
-}
 
-interface IProps {
-    data: ICardRoutes[]
-}
-
-const CardRoutes = ({ data }: IProps) => {
+const CardRoutes = ({ data }) => {
 
     const router = useRouter();
     const [routes, setRoutes] = useState([])
