@@ -203,3 +203,9 @@ const dashboard = () => {
 
 
 export default dashboard;
+
+export async function getServerSideProps(context) {
+    console.log('ENTROU');
+
+    return { props: { data: 'henrique' } }
+  }

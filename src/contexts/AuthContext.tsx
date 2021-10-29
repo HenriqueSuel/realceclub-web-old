@@ -2,15 +2,15 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import Router from 'next/router'
 import { getAuth } from "../services/apiAuth";
+import { validationRoutes } from "../ultis/validationRoutes";
+import { useLoading } from "./LoadingContext";
 
 type User = {
-    email: string;
-    phone: string;
     cnpj?: string;
-    cpf?: string;
+    email?: string;
     name_company?: string;
-    full_name?: string;
     owner_name?: string;
+    phone?: string;
 };
 
 type SingIn = {
@@ -47,6 +47,7 @@ export function signOut() {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
+    const { setLoading } = useLoading();
     const [user, setUser] = useState<User>();
     const isAuthenticated = !!user;
 
@@ -83,6 +84,33 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         Router.push(router);
     }
+
+
+    useEffect(() => {
+        const onMount = async () => {
+            try {
+                setLoading(true);
+                const { 'nextauth.token': token } = parseCookies();
+                const { 'nextauth.type': type } = parseCookies();
+                const verifyRoute = validationRoutes(Router.asPath, token?.length > 0, type)
+                if (verifyRoute.haveRermission && verifyRoute.needToken) {
+                    const resp = await getAuth<User>(`/${type}/me`);
+                    setUser(resp)
+                } else if (!verifyRoute.haveRermission) {
+                    Router.push(verifyRoute.redirect);
+                }
+                setLoading(false);
+            } catch (error) {
+                const { 'nextauth.type': type } = parseCookies();
+                const router = type === 'company' ? '/empresa/login' : '/funcionario/login'
+                Router.push(router);
+                setLoading(false);
+            }
+
+        }
+        onMount();
+    }, []);
+
 
     return (
         <AuthContext.Provider value={{ signIn, signOut, isAuthenticated, user, setUser }}>
