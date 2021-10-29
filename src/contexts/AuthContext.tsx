@@ -89,10 +89,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     useEffect(() => {
         const onMount = async () => {
             try {
+                if(Router.asPath === '/') return
                 setLoading(true);
                 const { 'nextauth.token': token } = parseCookies();
                 const { 'nextauth.type': type } = parseCookies();
                 const verifyRoute = validationRoutes(Router.asPath, token?.length > 0, type)
+                debugger
                 if (verifyRoute.haveRermission && verifyRoute.needToken) {
                     const resp = await getAuth<User>(`/${type}/me`);
                     setUser(resp)
